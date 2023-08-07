@@ -5,11 +5,6 @@ describe("Should be able to submit a burrito order", () => {
       fixture: 'burritoOrders.json'
     }).as('orders')
 
-    cy.intercept('POST', 'http://localhost:3001/api/v1/orders', {
-      statusCode: 201,
-      body: {}
-    })
-
     cy.visit("http://localhost:3000/");
   })
 
@@ -39,6 +34,13 @@ describe("Should be able to submit a burrito order", () => {
         .get(':nth-child(15)').click()
         .get('section').children().should('have.length', 3)
       cy.get('input').type('Mirian')
+        .intercept('POST', 'http://localhost:3001/api/v1/orders', {
+          statusCode: 201,
+          body: {
+            name: "Mirian",
+            ingredients: ["jalapeno", "carnitas"]
+          }
+        })
         .get(':nth-child(15)').click()
         .get('.order-selections').contains('Order: Nothing selected')
         .get('section').children().should('have.length', 4)
@@ -47,6 +49,13 @@ describe("Should be able to submit a burrito order", () => {
         .get('section').children().last().find('ul>li').first().contains('li', 'jalapeno')
         .get('section').children().last().find('ul>li').last().contains('li', 'carnitas')
       cy.get('input').type('Naze')
+        .intercept('POST', 'http://localhost:3001/api/v1/orders', {
+          statusCode: 201,
+          body: {
+            name: "Naze",
+            ingredients: ["hot sauce"]
+          }
+        })
         .get('.order-selections').contains('Order: Nothing selected')
         .get(':nth-child(15)').click()
         .get('section').children().should('have.length', 4)
