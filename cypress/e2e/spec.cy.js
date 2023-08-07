@@ -17,6 +17,14 @@ describe("Should be able to submit a burrito order", () => {
         .get('form').children().next().next().should('have.attr', 'name', 'steak')
         .get('.order-selections').contains('Order: Nothing selected')
         .get('section').children().should('have.length', 3)
+        .get('section').children().first().contains('h3', 'Pat')
+        .get('section').children().first().find('ul>li').should('have.length', 5)
+        .get('section').children().first().find('ul>li').first().contains('li', 'beans')
+        .get('section').children().first().find('ul>li').last().contains('li', 'jalapeno')
+        .get('section').children().last().contains('h3', 'Alex')
+        .get('section').children().last().find('ul>li').should('have.length', 5)
+        .get('section').children().last().find('ul>li').first().contains('li', 'sofritas')
+        .get('section').children().last().find('ul>li').last().contains('li', 'queso fresco')
     })
   });
 });
