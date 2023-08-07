@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { getOrders, postOrder } from "../../apiCalls";
+import { getOrders, postOrder, deleteOrder } from "../../apiCalls";
 import Orders from "../../components/Orders/Orders";
 import OrderForm from "../../components/OrderForm/OrderForm";
 
@@ -11,7 +11,6 @@ function App() {
     (async () => {
       try {
         const data = await getOrders()
-        console.log(data)
         setOrders(data.orders)
       } catch (err) {
         console.error("Error fetching:", err)
@@ -20,19 +19,25 @@ function App() {
 
   }, []);
 
-  const addOrder = (newBurrito) => {
-    postOrder(newBurrito);
-    setOrders(prev => [...prev, newBurrito])
+  const addOrder = async (newBurrito) => {
+    const order = await postOrder(newBurrito);
+    setOrders(prev => [...prev, order])
+  }
+
+  const handleDeleteOrder = (id) => {
+    deleteOrder(id);
+    const filteredOrders = orders.filter(order => order.id !== parseInt(id))
+    setOrders(filteredOrders)
   }
 
   return (
     <main className="App">
       <header>
         <h1>Burrito Builder</h1>
-        <OrderForm orders={orders} addOrder={addOrder} />
+        <OrderForm addOrder={addOrder} />
       </header>
 
-      <Orders orders={orders} />
+      <Orders orders={orders} deleteOrder={handleDeleteOrder} />
     </main>
   );
 }

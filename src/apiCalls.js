@@ -14,6 +14,12 @@ export const postOrder = async (newBurrito) => {
   return data;
 };
 
+export const deleteOrder = async (id) => {
+  return await fetch(`http://localhost:3001/api/v1/orders/${id}`, {
+    method: 'DELETE'
+  })
+};
+
 const handleError = (response) => {
   if(response.ok) {
     return response.json()

@@ -1,12 +1,11 @@
 import { useState } from "react";
 
-function OrderForm({orders, addOrder}) {
+function OrderForm({addOrder}) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
 
   function handleSubmit(e) {
     e.preventDefault();
-console.log(JSON.stringify(orders))
     const newBurrito = {
       name: name,
       ingredients: ingredients
