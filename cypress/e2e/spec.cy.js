@@ -69,4 +69,16 @@ describe("Should be able to submit a burrito order", () => {
         .get('section').children().last().find('ul>li').first().contains('li', 'hot sauce')
     })
   });
+
+  it('Should be able to delete an existing order', () => {
+    cy.intercept('DELETE', 'http://localhost:3001/api/v1/orders/1').as('delete')
+    cy.wait('@orders').then(() => {
+      cy.get('section').children().should('have.length', 3)
+        // .wait('@delete').then(() => {
+          cy.get('section').children().first().find('.delete-btn').click()
+          .get('section').children().should('have.length', 2)
+        // })
+    })
+  })
+
 });
