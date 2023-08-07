@@ -67,7 +67,7 @@ console.log(JSON.stringify(orders))
 
       {ingredientButtons}
 
-      <p>Order: {ingredients.join(", ") || "Nothing selected"}</p>
+      <p className="order-selections">Order: {ingredients.join(", ") || "Nothing selected"}</p>
 
       <button onClick={(e) => handleSubmit(e)}>Submit Order</button>
     </form>
