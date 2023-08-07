@@ -11,9 +11,10 @@ function OrderForm({orders, addOrder}) {
       name: name,
       ingredients: ingredients
     }
-
-    addOrder(newBurrito)
-    clearInputs();
+    if(name && ingredients.length) {
+      addOrder(newBurrito)
+      clearInputs();
+    }
   }
 
   const addIngredient = (e) => {
