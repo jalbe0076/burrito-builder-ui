@@ -4,6 +4,16 @@ export const getOrders = async () => {
   return data;
 };
 
+export const postOrder = async (newBurrito) => {
+  const response = await fetch("http://localhost:3001/api/v1/orders", {
+    method: 'POST',
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(newBurrito)
+  })
+  const data = await handleError(response);
+  return data;
+};
+
 const handleError = (response) => {
   if(response.ok) {
     return response.json()
