@@ -5,17 +5,21 @@ describe("Should be able to submit a burrito order", () => {
       fixture: 'burritoOrders.json'
     }).as('orders')
 
+    cy.intercept('POST', 'http://localhost:3001/api/v1/orders', {
+      statusCode: 201,
+      body: {}
+    })
+
     cy.visit("http://localhost:3000/");
   })
 
-  it("Should display a title, form and existing orders. Should only allow to submit an order if a name and at least one ingredient is entered.", () => {
+  it("Should display a title, a form and existing orders. Should only allow to submit an order if a name and at least one ingredient is entered.", () => {
     cy.wait('@orders').then(() => {
       cy.get('h1').contains('Burrito Builder')
         .get('form').should('be.visible').children().should('have.length', 15)
         .get('input').should('have.attr', 'name', 'name')
         .get('form').children().next().first().should('have.attr', 'name', 'beans')
         .get('form').children().next().next().should('have.attr', 'name', 'steak')
-        .get('.order-selections').contains('Order: Nothing selected')
         .get('section').children().should('have.length', 3)
         .get('section').children().first().contains('h3', 'Pat')
         .get('section').children().first().find('ul>li').should('have.length', 5)
@@ -25,6 +29,7 @@ describe("Should be able to submit a burrito order", () => {
         .get('section').children().last().find('ul>li').should('have.length', 5)
         .get('section').children().last().find('ul>li').first().contains('li', 'sofritas')
         .get('section').children().last().find('ul>li').last().contains('li', 'queso fresco')
+        .get('.order-selections').contains('Order: Nothing selected')
       cy.get(':nth-child(15)').click()
         .get('section').children().should('have.length', 3)
       cy.get('[name="jalapenos"]').click()
