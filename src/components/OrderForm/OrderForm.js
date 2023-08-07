@@ -6,7 +6,7 @@ function OrderForm({orders, addOrder}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+console.log(JSON.stringify(orders))
     const newBurrito = {
       name: name,
       ingredients: ingredients
