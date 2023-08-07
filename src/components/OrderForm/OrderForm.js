@@ -1,8 +1,10 @@
 import { useState } from "react";
 
-function OrderForm(props) {
+function OrderForm({orders}) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
+
+  console.log(orders)
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -47,7 +49,7 @@ function OrderForm(props) {
         placeholder="Name"
         name="name"
         value={name}
-        // onChange={(e) => }
+        onChange={(e) => setName(e)}
       />
 
       {ingredientButtons}
