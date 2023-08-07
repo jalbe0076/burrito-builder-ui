@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function OrderForm({orders}) {
+function OrderForm({orders, addOrder}) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
 
@@ -12,6 +12,7 @@ function OrderForm({orders}) {
       ingredients: ingredients
     }
 
+    addOrder(newBurrito)
     clearInputs();
   }
 
