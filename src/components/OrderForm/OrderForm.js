@@ -4,11 +4,25 @@ function OrderForm({orders}) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
 
-  console.log(orders)
-
   function handleSubmit(e) {
     e.preventDefault();
+
+    const newBurrito = {
+      name: name,
+      ingredients: ingredients
+    }
+
     clearInputs();
+  }
+
+  const addIngredient = (e) => {
+    e.preventDefault();
+    console.log(e.target.name)
+    if(!ingredients.includes(e.target.name)) {
+      setIngredients(prev => [...prev, e.target.name])
+    }
+
+    console.log(ingredients)
   }
 
   function clearInputs() {
@@ -35,7 +49,7 @@ function OrderForm({orders}) {
       <button
         key={ingredient}
         name={ingredient}
-        // onClick={(e) => }
+        onClick={(e) => addIngredient(e)}
       >
         {ingredient}
       </button>
@@ -49,7 +63,7 @@ function OrderForm({orders}) {
         placeholder="Name"
         name="name"
         value={name}
-        onChange={(e) => setName(e)}
+        onChange={(e) => setName(e.target.value)}
       />
 
       {ingredientButtons}

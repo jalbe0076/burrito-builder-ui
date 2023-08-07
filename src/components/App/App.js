@@ -8,8 +8,10 @@ function App() {
   const [orders, setOrders] = useState([])
 
   useEffect(() => {
-    getOrders().catch((err) => console.error("Error fetching:", err));
+    // getOrders().catch((err) => console.error("Error fetching:", err));
   }, []);
+
+  
 
   return (
     <main className="App">
