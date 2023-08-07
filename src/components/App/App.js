@@ -8,10 +8,19 @@ function App() {
   const [orders, setOrders] = useState([])
 
   useEffect(() => {
-    // getOrders().catch((err) => console.error("Error fetching:", err));
+    (async () => {
+      try {
+        const data = await getOrders()
+        setOrders(data.orders)
+      } catch (err) {
+        console.error("Error fetching:", err)
+      }
+    })()
+
   }, []);
 
   const addOrder = (newBurrito) => {
+
     setOrders(prev => [...prev, newBurrito])
   }
 

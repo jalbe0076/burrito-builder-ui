@@ -18,12 +18,9 @@ function OrderForm({orders, addOrder}) {
 
   const addIngredient = (e) => {
     e.preventDefault();
-    console.log(e.target.name)
     if(!ingredients.includes(e.target.name)) {
       setIngredients(prev => [...prev, e.target.name])
     }
-
-    console.log(ingredients)
   }
 
   function clearInputs() {
